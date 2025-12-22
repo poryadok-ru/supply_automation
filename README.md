@@ -19,3 +19,11 @@
 
 ### Цены
 - **Наценка** - расчет наценок на товары
+
+
+### Переменные окружения:
+
+SECRET_KEY=your-secret-key
+DEBUG=True
+DJANGO_HOST=http://localhost:8000
+
