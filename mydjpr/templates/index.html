@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Обработки</title>
+    {% load static %}
+    <link rel="shortcut icon" type="image/ico" href="{% static 'favicon1.ico' %}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+        h1 {
+            color: #333;
+        }
+        .link-column {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 20px;
+        }
+        .link-column a {
+            display: block;
+            padding: 10px 20px;
+            margin: 10px 0; /* Adjusted margin for spacing between links */
+            background-color: #007bff;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            width: 200px; /* Consistent width for all links */
+        }
+        .link-column a:hover {
+            background-color: #0056b3;
+        }
+        .link-container {
+            display: flex; /* Create a flex container for columns */
+            justify-content: center; /* Center the columns */
+        }
+        .navbar {
+            background-color: transparent;
+            padding: 10px;
+            color: #0056b3;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+        }
+        
+        .navbar .user-info {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+        }
+        
+        .navbar .user-info span,
+        .navbar .user-info a {
+            margin-left: 10px;
+            text-decoration: none; /* Убираем подчеркивание у ссылки "Выйти" */
+            color: #0056b3; /* Устанавливаем цвет текста ссылки "Выйти" */
+        }
+        .logout-link {
+            background-color: transparent;
+            color: #0056b3;
+            padding: 0;
+            margin: 0 10px;
+            width: auto;
+            display: inline;
+        }
+        
+        .logout-link:hover {
+            background-color: transparent;
+            text-decoration: underline;
+        }
+
+        /* Добавим стиль для заголовков столбцов */
+        .column-title {
+            font-size: 18px; /* Размер шрифта для заголовков */
+            color: #333; /* Цвет заголовков */
+            margin-bottom: 10px; /* Отступ снизу для заголовков */
+            font-weight: bold; /* Жирный шрифт для заголовков */
+        }
+
+        .holiday-button {
+            display: inline-block;
+            min-width:100px;
+            padding: 15px 20px;
+            text-decoration: none;
+            color: #fff;
+            background: green;
+            outline: none;
+            border-radius: 15px;
+            position: relative;
+        }
+        
+
+        
+    </style>
+</head>
+
+<body>
+    <div class="navbar">
+        <div class="user-info">
+            {% if user.is_authenticated %}
+                <span>{{ user.username }}</span>
+                <a class="logout-link" href="{% url 'logout' %}">Выйти</a>
+            {% else %}
+                <script>
+                    window.location.replace("{% url 'login' %}");
+                </script>
+            {% endif %}
+        </div>
+    </div>
+
+    <h1>Выберите обработку</h1>
+
+    <div class="link-container">
+        <div class="link-column">
+            <div class="column-title">Опт</div> <!-- Заголовок для первого столбца -->
+            <a href="optzakazfive.html">Оптовые заказы FNow с увеличением до суммы</a>
+            <a href="nps_china.html">Заказы Китай - NPS</a>
+            {% comment %} <a href="optzakaz.html">Оптовые заказы FNow - Юршина</a> {% endcomment %}
+        </div>
+        <div class="link-column">
+            <div class="column-title">Аналитика</div> <!-- Заголовок для второго столбца -->
+            <a href="maksimaln.html">Максимальный запас</a>
+            <a href="block.html">Блокировки</a>
+            <a href="nalichie.html">Наличие</a>
+            <a href="nelikvid.html">Неликвиды</a>
+            <a href="nalichie_po_formatam.html">Наличие по форматам</a>
+            <a href="nps.html">NPS</a>
+            <a href="minparty.html">Минимальная партия</a>
+            <a href="sku_count.html">SKU в поставках</a>
+        </div>
+        <div class="link-column">
+            <div class="column-title">Розница</div> <!-- Заголовок для третьего столбца -->
+            <a href="dopzakaz.html">Допзаказ ПРК</a>
+            <a href="grafik.html">График</a>
+            {% comment %} <a href="dopzakazng.html">Допзаказ ПРК НГ 🎄</a> {% endcomment %}
+        </div>
+    </div>
+    <div class="link-container">
+        <div class="link-column">
+            <div class="column-title">Цены</div> <!-- Заголовок для первого столбца -->
+            <a href="nacenka.html">Наценка</a>
+        </div>
+        
+    </div>
+</body>
+</html>

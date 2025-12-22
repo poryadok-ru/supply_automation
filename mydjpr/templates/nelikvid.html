@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Обработки - Неликвиды</title>
+    {% load static %}
+    <link rel="shortcut icon" type="image/ico" href="{% static 'favicon1.ico' %}">
+    <style>
+        @keyframes button-click {
+            0% {
+              transform: scale(1);
+            }
+            50% {
+              transform: scale(0.95);
+            }
+            100% {
+              transform: scale(1);
+            }
+          }
+  
+          .btn:active {
+            animation: button-click 0.2s ease-in-out;
+          }
+        .btn {
+            font-size: 1.5em;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        input[type="text"] {
+            border: 2px solid rgb(78, 82, 206);
+            font-size: 1.5em;
+            padding: 10px;
+            width: 70%;
+        }
+        label {
+            font-size: 1.5em;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+            position: relative; /* Для позиционирования кнопки */
+        }
+        h1 {
+            color: #333;
+        }
+        .btn-home {
+            font-size: 1em;
+            text-decoration: none; /* Удаление подчеркивания */
+            position: absolute;
+            top: 10px; /* Расположение от верхнего края */
+            left: 10px; /* Расположение от левого края */
+        }
+        #server-terminal {
+            height: 200px;
+            overflow-y: scroll;
+            border: 1px solid black;
+            padding: 10px;
+            margin-top: 20px;
+            line-height: 0.15;
+            text-align: left;
+        }
+
+        /* Новые стили для элемента с галкой */
+        input[type="checkbox"] {
+            position: relative;
+            top: 2px;
+            margin-right: 10px;
+            width: 20px;
+            height: 20px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            -webkit-appearance: none;
+            appearance: none;
+        }
+        
+        input[type="checkbox"]:checked {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+        
+        input[type="checkbox"]:checked::after {
+            content: "\2713";
+            font-size: 1.2em;
+            color: #fff;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        
+        span {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #333;
+        }
+
+    
+
+    </style>
+</head>
+<body>
+    <a href="{% url 'index_page' %}" class="btn btn-home">Главная страница</a><br/><br/>
+
+    <h1>Неликвиды</h1>
+
+    <form method="post" action="{% url 'nelikvid' %}">
+        {% csrf_token %}
+        <label for="file_path">Скопируйте в поле ниже путь к исходным файлам:</label><br/><br/>
+        <input type="text" name="file_path" value="{{ request.user.profile.file_path_user }}\Неликвиды"><br/><br/>
+        <button type="submit" class="btn">Запустить скрипт</button><br/><br/>
+    
+        <div style="display: flex; justify-content: space-between;">
+            <div style="flex: 1; margin-right: 10px;">
+                <div style="display: flex; align-items: center;">
+                    <label for="porog1" style="margin-right: 10px;">Порог для неликвидов 1 кластера:</label>
+                    <input type="number" name="porog1" value="150" min="0" step="1">
+                </div>
+                <div style="display: flex; align-items: center;">
+                    <label for="porog2" style="margin-right: 10px;">Порог для неликвидов 2 кластера:</label>
+                    <input type="number" name="porog2" value="100" min="0" step="1">
+                </div>
+                <div style="display: flex; align-items: center;">
+                    <label for="porog3" style="margin-right: 10px;">Порог для неликвидов 3 кластера:</label>
+                    <input type="number" name="porog3" value="75" min="0" step="1">
+                </div>
+            </div>
+    
+            <div style="flex: 1; margin-left: 10px;">
+                <div style="display: flex; align-items: center;">
+                    <label for="porog4" style="margin-right: 10px;">Порог для блокировок 1 кластера:</label>
+                    <input type="number" name="porog4" value="150" min="0" step="1">
+                </div>
+                <div style="display: flex; align-items: center;">
+                    <label for="porog5" style="margin-right: 10px;">Порог для блокировок 2 кластера:</label>
+                    <input type="number" name="porog5" value="125" min="0" step="1">
+                </div>
+                <div style="display: flex; align-items: center;">
+                    <label for="porog6" style="margin-right: 10px;">Порог для блокировок 3 кластера:</label>
+                    <input type="number" name="porog6" value="100" min="0" step="1">
+                </div>
+            </div>
+        </div>
+    
+        
+    </form>
+
+    <div id="server-terminal"></div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        function addServerMessage(message) {
+            $('#server-terminal').append('<p>' + message + '</p>');
+            $('#server-terminal').scrollTop($('#server-terminal')[0].scrollHeight);
+        }
+    </script>
+    {% if messages %}
+    <script>
+        {% for message in messages %}
+            addServerMessage("{{ message }}");
+        {% endfor %}
+    </script>
+    {% endif %}
+
+</body>
+</html>
