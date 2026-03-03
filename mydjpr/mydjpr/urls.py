@@ -17,7 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import include, path
 from django.views.generic import RedirectView
-from supply import views
+from max import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -54,6 +54,8 @@ urlpatterns = [
         path('grafik/', views.grafik_view, name='grafik_view'),
         path('sku_count.html', views.sku_count_page, name='sku_count_page'),
         path('sku_count/', views.sku_count_view, name='sku_count_view'),
+        path('sendletter.html', views.sendletter_page, name='sendletter_page'),
+        path('sendletter/', views.sendletter_view, name='sendletter_view'),
         path('favicon.ico', RedirectView.as_view(url='/static/favicon1.ico')),
     ])),
     path('login/', views.login_view, name='login'),

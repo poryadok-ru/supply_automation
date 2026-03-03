@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Обработки - Отправка минимальных цен партнерам</title>
+    {% load static %}
+    <link rel="shortcut icon" type="image/ico" href="{% static 'favicon1.ico' %}">
+    <style>
+        @keyframes button-click {
+            0% {
+              transform: scale(1);
+            }
+            50% {
+              transform: scale(0.95);
+            }
+            100% {
+              transform: scale(1);
+            }
+          }
+  
+          .btn:active {
+            animation: button-click 0.2s ease-in-out;
+          }
+        .btn {
+            font-size: 1.5em;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        input[type="text"] {
+            border: 2px solid rgb(78, 82, 206);
+            font-size: 1.5em;
+            padding: 10px;
+            width: 70%;
+        }
+        label {
+            font-size: 1.5em;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+            position: relative; /* Для позиционирования кнопки */
+        }
+        h1 {
+            color: #333;
+        }
+        .btn-home {
+            font-size: 1em;
+            text-decoration: none; /* Удаление подчеркивания */
+            position: absolute;
+            top: 10px; /* Расположение от верхнего края */
+            left: 10px; /* Расположение от левого края */
+        }
+        #server-terminal {
+            height: 200px;
+            overflow-y: scroll;
+            border: 1px solid black;
+            padding: 10px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <a href="{% url 'index_page' %}" class="btn btn-home">Главная страница</a><br/><br/>
+
+    <h1>Отправка минимальных цен партнерам</h1>
+
+    <form method="post" action="{% url 'sendletter_view' %}">
+        {% csrf_token %}
+        <label for="file_path">Скопируйте в поле ниже путь к исходным файлам:</label><br/><br/>
+        <input type="text" name="file_path" value="{{ request.user.profile.file_path_user }}\Отправка писем партнерам"><br/><br/>
+        <button type="submit" class="btn">Отправить</button>
+    </form>
+    
+    <div id="server-terminal"></div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        function addServerMessage(message) {
+            $('#server-terminal').append('<p>' + message + '</p>');
+            $('#server-terminal').scrollTop($('#server-terminal')[0].scrollHeight);
+        }
+    </script>
+    {% if messages %}
+    <script>
+        {% for message in messages %}
+            addServerMessage("{{ message }}");
+        {% endfor %}
+    </script>
+    {% endif %}
+    
+</body>
+</html>
