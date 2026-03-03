@@ -20,10 +20,10 @@ def send_letter(file_path, add_message):
         file_path = file_path + os.sep
 
     # ================= НАСТРОЙКИ =================
-    SMTP_SERVER = "email.sct.ru"  # SMTP сервер Zimbra
+    SMTP_SERVER = "server"  # SMTP сервер Zimbra
     SMTP_PORT = 587                     # Обычно 587 (TLS) или 465 (SSL)
-    EMAIL_ADDRESS = "PricingDepartment@sct.ru"
-    EMAIL_PASSWORD = "Dnl89erf9zRE"
+    EMAIL_ADDRESS = "email"
+    EMAIL_PASSWORD = "pass"
 
     EXCEL_FILE = file_path +  "recipients.xlsx"
     ATTACHMENT_PATH = file_path +  "prices.xlsx"  # файл для вложения (если не нужен — удалите блок вложения)
